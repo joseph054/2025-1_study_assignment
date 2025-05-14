@@ -50,12 +50,57 @@ namespace calculator
     public class Calculator
     {
         // ---------- TODO ----------
-        
+        public double Calculate(double num1, string op, double num2)
+        {
+            switch (op)
+            {
+                case "+":
+                    return num1 + num2;
+                case "-":
+                    return num1 - num2;
+                case "*":
+                    return num1 * num2;
+                case "/":
+                    if (num2 == 0)
+                        throw new DivideByZeroException("Cannot divide by zero");
+                    return num1 / num2;
+                case "%":
+                    return num1 % num2;
+                case "**":
+                    return Math.Pow(num1, num2);
+                case "G":
+                    return GCD((int)num1, (int)num2);
+                case "L":
+                    return LCM((int)num1, (int)num2);
+                default:
+                    throw new InvalidOperationException($"Unsupported operator: {op}");
+            }
+        }
 
+        private int GCD(int a, int b)
+        {
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
 
-        // --------------------
+        private int LCM(int a, int b)
+        {
+            if (a == 0 || b == 0) return 0;
+            return Math.Abs(a * b) / GCD(a, b);
+        }
     }
 }
+
+        // --------------------
+    
+
 
 /* example output
 
